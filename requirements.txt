@@ -1,0 +1,36 @@
+# .gitignore
+
+# Virtual Environment
+venv/
+
+datasets/
+data/
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local configuration file (replace with your actual configuration file name)
+.env
+
+# IDE-specific files (VSCode, PyCharm, etc.)
+.vscode/
+.idea/
+
+# Compiled Python files
+*.pyc
+
+# Compiled C extension
+*.so
+
+# Temporary files
+*.swp
+*.swo
+
+# Ignore logs, databases, and other generated files
+*.log
+*.sqlite3
+db.sqlite3
