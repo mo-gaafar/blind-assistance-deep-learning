@@ -11,7 +11,7 @@ import supervision as sv
 model = YOLO('yolov8n.yaml')
 
 # Load a pretrained YOLO model (recommended for training)
-model = YOLO('yolov8n.pt')
+model = YOLO('data/yolov8n.pt')
 
 # # Train the model using the 'coco128.yaml' dataset for 3 epochs
 # results = model.train(data='coco128.yaml', epochs=3)
