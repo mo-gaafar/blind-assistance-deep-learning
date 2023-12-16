@@ -1,7 +1,7 @@
 # models/object_detection/yolov8_object_detection.py
 
 import torch
-from torchvision.models.detection import yolo
+# from torchvision.models.detection import yolo_v3
 
 class YOLOv8ObjectDetectionModel:
     def __init__(self, model_path):
@@ -11,11 +11,12 @@ class YOLOv8ObjectDetectionModel:
 
     def load_model(self):
         # Placeholder for loading YOLOv8 model
-        model = yolo.yolov8()  # Instantiate YOLOv8 model (replace with actual model instantiation)
-        model.load_state_dict(torch.load(self.model_path))
-        model.to(self.device)
-        model.eval()
-        return model
+        # model = yolo.yolov8()  # Instantiate YOLOv8 model (replace with actual model instantiation)
+        # model.load_state_dict(torch.load(self.model_path))
+        # model.to(self.device)
+        # model.eval()
+        # return model
+        pass
 
     def preprocess_image(self, image):
         # Placeholder for preprocessing image
