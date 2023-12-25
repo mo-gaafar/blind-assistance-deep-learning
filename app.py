@@ -14,7 +14,8 @@ import os
 cap = cv2.VideoCapture(1)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 400)
 # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 400)
-
+# flip camera
+# cap.set(cv2.FLIP_LEFT_RIGHT, True)
 # Annotation
 box_annotator = sv.BoxAnnotator(thickness=2,
                                 text_scale=1,
@@ -24,7 +25,7 @@ box_annotator = sv.BoxAnnotator(thickness=2,
 # Flag to control the loop
 running = True
 show_annotations = False
-scene_to_speech = True
+scene_to_speech = False
 
 
 def toggle_running():
@@ -43,17 +44,17 @@ def toggle_scene_to_speech():
 
 
 def tts(text):
-    # text = "Hello, this is a test message."
-    # tts = gTTS(text=text, lang='en')
-    # tts.save("output.mp3")
-    # os.system("mpg321 output.mp3")
+    from models.text_to_speech.tts1 import text_to_audio
+    text_to_audio(text, "temp.wav")
+    # output audio to speaker
+    from pygame import mixer
+    mixer.init()
+    mixer.music.load("temp.wav")
+    mixer.music.play()
 
-    pass
 
 # Create an overlay button
 
-
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton, QGridLayout
 
 class MainWindow(QWidget):
 
@@ -76,7 +77,8 @@ class MainWindow(QWidget):
         self.grid_layout.addWidget(self.button_tts, 0, 0)
         self.grid_layout.addWidget(self.button_pause, 0, 1)
         self.grid_layout.addWidget(self.button_annotations, 0, 2)
-        self.grid_layout.addWidget(self.label_caption, 1, 0, 1, 3)  # Add caption label
+        self.grid_layout.addWidget(
+            self.label_caption, 1, 0, 1, 3)  # Add caption label
 
         self.layout.addWidget(self.label)
         self.layout.addLayout(self.grid_layout)
@@ -99,7 +101,6 @@ class MainWindow(QWidget):
             return
         self.frame = frame  # save in memory
 
-
         # Update caption label width based on inner text
         self.label_caption.adjustSize()
         # self.label_caption.setMinimumWidth(self.label_caption.sizeHint().width())
@@ -108,6 +109,7 @@ class MainWindow(QWidget):
         if scene_to_speech:
             # Display loading message
             self.label_caption.setText("Loading...")
+            tts("Processing scene")
 
             # Perform captioning asynchronously
             def perform_captioning():
@@ -117,6 +119,7 @@ class MainWindow(QWidget):
 
                 # Update the caption label
                 self.label_caption.setText(self.caption)
+                threading.Thread(target=tts, args=(self.caption,)).start()
 
             # Start the captioning process in a separate thread
             threading.Thread(target=perform_captioning).start()
