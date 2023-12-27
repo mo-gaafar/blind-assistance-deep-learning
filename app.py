@@ -60,7 +60,7 @@ class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
-
+        
         self.setWindowTitle("Webcam Feed")
         self.layout = QVBoxLayout()
         self.grid_layout = QGridLayout()
@@ -150,17 +150,10 @@ class MainWindow(QWidget):
 
         # Scale the image to fit the label while preserving aspect ratio
         scaled_image = q_image.scaled(
-            self.label.size() * 2, Qt.AspectRatioMode.KeepAspectRatio)
+            self.label.size(), Qt.AspectRatioMode.KeepAspectRatio)
 
         # Display the scaled image in the label
         self.label.setPixmap(QPixmap.fromImage(scaled_image))
-
-        # # Scale the image to fit the label while preserving aspect ratio
-        # scaled_image = q_image.scaled(
-        #     self.label.size(), Qt.AspectRatioMode.KeepAspectRatio)
-
-        # # Display the scaled image in the label
-        # self.label.setPixmap(QPixmap.fromImage(scaled_image))
 
     def resizeEvent(self, event):
         # Set the minimum size of the window
