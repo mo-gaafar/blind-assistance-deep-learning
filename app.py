@@ -145,16 +145,22 @@ class MainWindow(QWidget):
 
         # caption = "No scene description"
         # self.label_caption.setText(caption)
-
         self.label_caption.setStyleSheet(
-            "background-color: yellow; color: black;")
+            "background-color: gray; color: white; font-size: 20px;")
 
         # Scale the image to fit the label while preserving aspect ratio
         scaled_image = q_image.scaled(
-            self.label.size(), Qt.AspectRatioMode.KeepAspectRatio)
+            self.label.size() * 2, Qt.AspectRatioMode.KeepAspectRatio)
 
         # Display the scaled image in the label
         self.label.setPixmap(QPixmap.fromImage(scaled_image))
+
+        # # Scale the image to fit the label while preserving aspect ratio
+        # scaled_image = q_image.scaled(
+        #     self.label.size(), Qt.AspectRatioMode.KeepAspectRatio)
+
+        # # Display the scaled image in the label
+        # self.label.setPixmap(QPixmap.fromImage(scaled_image))
 
     def resizeEvent(self, event):
         # Set the minimum size of the window
